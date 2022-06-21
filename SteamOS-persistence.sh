@@ -18,8 +18,8 @@ BACKUPS="$DIRECTORIO/backup"
 LOGS="$DIRECTORIO/log"
 
 # Si los directorios auxiliares no existen, se crean
-[ ! -d "$BACKUPS" ] && echo mkdir -p $BACKUPS
-[ ! -d "$LOGS" ] && echo mkdir -p $LOGS
+[ ! -d "$BACKUPS" ] && mkdir -p $BACKUPS
+[ ! -d "$LOGS" ] && mkdir -p $LOGS
 
 function showhelp()
 {
@@ -42,9 +42,11 @@ do
         showhelp
         ;;
     -S|--savemode)
-        MODE=S
+        [ ! -z "$MODE" ] && echo "No se puede definir -S y -K conjuntamente." && exit 2
+	MODE=S
         ;;
     -K|--killmode)
+	[ ! -z "$MODE" ] && echo "No se puede definir -K y -S conjuntamente." && exit 2
 	MODE=K
         ;;
     -d|--directory)
