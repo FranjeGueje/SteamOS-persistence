@@ -14,12 +14,10 @@
 
 # Variables iniciales
 DIRECTORIO="/home/deck/.SteamOS-persistence.d"
+
+# Variables donde guardar Backups y Logs
 BACKUPS="$DIRECTORIO/backup"
 LOGS="$DIRECTORIO/log"
-
-# Si los directorios auxiliares no existen, se crean
-[ ! -d "$BACKUPS" ] && mkdir -p $BACKUPS
-[ ! -d "$LOGS" ] && mkdir -p $LOGS
 
 function showhelp()
 {
@@ -63,6 +61,13 @@ do
     esac
     shift
 done
+
+# Si el directorio no existe, se sale
+[ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO." && exit 3
+
+# Si los directorios auxiliares no existen, se crean
+[ ! -d "$BACKUPS" ] && mkdir -p $BACKUPS
+[ ! -d "$LOGS" ] && mkdir -p $LOGS
 
 # Comprobaciones de parámetros
 if [ -z "$MODE" ]
