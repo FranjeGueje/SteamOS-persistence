@@ -1,0 +1,1 @@
+.SteamOS-persistence.d
