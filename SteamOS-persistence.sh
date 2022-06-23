@@ -13,7 +13,7 @@
 
 
 # Variables iniciales
-DIRECTORIO="/home/deck/.SteamOS-persistence.d"
+DIRECTORIO="/home/.SteamOS-persistence.d"
 
 function showhelp()
 {
