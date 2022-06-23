@@ -8,7 +8,7 @@ sudo steamos-readonly disable
 echo "Removing current files..."
 sudo rm /usr/lib/hwsupport/sdcard-mount.sh
 sudo rm /usr/lib/hwsupport/format-sdcard.sh
-echo "Copying modified files..."
+echo "Return original files..."
 sudo cp "$BACKUPS"/sdcard-mount.sh /usr/lib/hwsupport/sdcard-mount.sh
 sudo cp "$BACKUPS"/format-sdcard.sh /usr/lib/hwsupport/format-sdcard.sh
 echo "Editing new file permissions..."

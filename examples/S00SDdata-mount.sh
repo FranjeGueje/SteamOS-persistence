@@ -8,16 +8,19 @@ function addToFstab()
     # Comprobamos si es la primera vez que ejectamos este script, o lo que es lo mismo, que nuestra unidad btrfs no tiene ningún fichero
     mkdir /tmp/deck-btrfs && sudo mount "$PARTICION" /tmp/deck-btrfs -t btrfs -o noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag
     # Si el punto de montaje tiene cero ficheros entonces copiamos el contenido de home deck al disco nuevo
-    find /tmp/deck-btrfs -type f | wc -l && cp -a /home/deck/. /tmp/deck-btrf
+    sudo find /tmp/deck-btrfs -type f | sudo wc -l && echo "La partición está vacía, se procede a la copia." && sudo cp -a /home/deck/. /tmp/deck-btrfs
     sudo umount /tmp/deck-btrfs
     
     # Hacemos copia del fichero a modificar
     cp /etc/fstab "$BACKUPS"/fstab.bak -f
     # Añadimos la línea al fstab
-    sudo echo -e "$PARTICION     /home/deck    btrfs   noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag 0 2" >> /dev/null
+    sudo steamos-readonly disable
+    sudo echo -e "$PARTICION     /home/deck    btrfs   noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag 0 0" | tee -a /etc/fstab
+    sudo steamos-readonly enable
     # Recargar los demonios no haría falta, mejor sería reiniciar
     # sudo systemctl daemon-reload
+    echo "Actualizado, se recomienada reiniciar."
 }
 
 # Vemos si el actual fstab tiene el punto de montaje btrfs, si no, llama a la funcion para ponerlo
-grep /home/deck < /etc/fstab | grep btrfs || addToFstab
+grep /home/deck < /etc/fstab | grep btrfs || echo "Es necesario añadir al fstab la partición /home/deck" && addToFstab
