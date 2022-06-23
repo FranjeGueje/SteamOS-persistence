@@ -1,10 +1,11 @@
 #! /bin/bash
 
 ##############################################################################################################################################################
-#VERSION 0.1
-#SCRIPT pensado para ganar persistencia en SteamOS. Este ejecutará todos los Scripts que comiencen con el caracter S o el caracter K.
+#VERSION 0.2
+#SCRIPT pensado para ganar persistencia en SteamOS. Este ejecutará todos los Scripts que comiencen con el caracter S, K, C *Haciendo cambios en la contraseña*
 #   Los que comiencen por S es para 'Salvar persistencia' hasta la próxima actualización por parte del fabricante.
-#   Los que comiencen por K es para 'Deshacer esa persistencia'. Es decir, intentar deshacer cada uno de los scripts anteriores S. Esta parte es más opcional.
+#   Los que comiencen por C es para 'Chequear persistencia', comprobar el estado de cada una de la persistencia. Esta parte no sería necesaria.
+#   Los que comiencen por K es para 'Deshacer esa persistencia'. Es decir, intentar deshacer cada uno de los scripts anteriores S. Esta parte no es necesaria.
 #Util añadirlo como Aplicación de Steam en el Gaming Mode. Así, tras una actualización de SteamOS, lo ejecutaremos para volver a dar persistencia.
 #Util para todas las modificaciones que NO SOBREVIVEN a las actualizaciones.
 #
@@ -17,10 +18,11 @@ DIRECTORIO="/home/.SteamOS-persistence.d"
 
 function showhelp()
 {
-    echo "Usage: $0 -S|-K [-d directory] [-n]"
+    echo "Usage: $0 -S|-C|-K [-d directory] [-n]"
     echo "Options:"
     echo -e "\t-h|--help\t\tEsta ayuda. This help."
     echo -e "\t-S|--savemode\t\tEjecutar en modo Salvado. It'll runing on Save Persistence Mode."
+    echo -e "\t-C|--checkmode\t\tEjecutar en modo Chequeo. It'll runing on Check Persistence Mode."
     echo -e "\t-K|--killmode\t\tEjecutar en modo Deshacer. It'll runing on Undo Persistence Mode."
     echo -e "\t-d|--directory\t\tSe indica donde se encuentran esos scripts. Por defecto $DIRECTORIO"
     echo -e "\t-n|--nosudo\t\tNo necesitamos tareas de sudo. Don't need sudo tasks."
@@ -36,11 +38,15 @@ do
         showhelp
         ;;
     -S|--savemode)
-        [ ! -z "$MODE" ] && echo "No se puede definir -S y -K conjuntamente." && exit 2
+        [ ! -z "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
 	MODE=S
         ;;
+    -C|--checkmode)
+        [ ! -z "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
+	MODE=C
+        ;;
     -K|--killmode)
-	[ ! -z "$MODE" ] && echo "No se puede definir -K y -S conjuntamente." && exit 2
+	[ ! -z "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
 	MODE=K
         ;;
     -d|--directory)
