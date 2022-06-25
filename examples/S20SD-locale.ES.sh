@@ -5,10 +5,10 @@ function changeLocal()
 {
 
 	sudo steamos-readonly disable
-	sudo sed -i 's/\#es_ES.UTF-8\ UTF-8/es_ES.UTF-8\ UTF-8/' file
+	sudo sed -i 's/\#es_ES.UTF-8\ UTF-8/es_ES.UTF-8\ UTF-8/' /etc/locale.gen
 	sudo pacman-key --init
 	sudo pacman-key --populate archlinux
-	sudo pacman -S glibc
+	sudo pacman -S glibc --noconfirm
 	sudo locale-gen
 	sudo steamos-readonly enable
 
