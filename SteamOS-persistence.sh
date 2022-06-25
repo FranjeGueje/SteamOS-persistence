@@ -65,7 +65,7 @@ do
 done
 
 # Si el directorio no existe, se sale
-[ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && exit 3
+[ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && showhelp && exit 3
 
 # Variables donde guardar Backups y Logs
 BACKUPS="$DIRECTORIO/backup"
