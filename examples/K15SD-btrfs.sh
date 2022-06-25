@@ -16,4 +16,3 @@ sudo chmod 755 /usr/lib/hwsupport/sdcard-mount.sh /usr/lib/hwsupport/format-sdca
 echo "Re-enabling readonly filesystem..."
 sudo steamos-readonly enable
 echo "Done!"
-

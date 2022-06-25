@@ -12,12 +12,10 @@
 # REQUISITOS - Es necesario que el usuario deck no tenga contraseña (passwd -d). No funcionará el automatismo con contraseña personalizada
 ##############################################################################################################################################################
 
-
 # Variables iniciales
 DIRECTORIO="/home/.SteamOS-persistence.d"
 
-function showhelp()
-{
+function showhelp() {
     echo "Usage: $0 -S|-C|-K [-d directory] [-n]"
     echo "Options:"
     echo -e "\t-h|--help\t\tEsta ayuda. This help."
@@ -30,32 +28,31 @@ function showhelp()
 }
 
 # Mientras el número de argumentos NO SEA 0
-while [ $# -ne 0 ]
-do
+while [ $# -ne 0 ]; do
     case "$1" in
-    -h|--help)
+    -h | --help)
         # No hacemos nada más, porque showhelp se saldrá del programa
         showhelp
         ;;
-    -S|--savemode)
-        [ ! -z "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
-	MODE=S
+    -S | --savemode)
+        [ -n "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
+        MODE=S
         ;;
-    -C|--checkmode)
-        [ ! -z "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
-	MODE=C
+    -C | --checkmode)
+        [ -n "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
+        MODE=C
         ;;
-    -K|--killmode)
-	[ ! -z "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
-	MODE=K
+    -K | --killmode)
+        [ -n "$MODE" ] && echo "No se puede definir -S -C o -K conjuntamente." && exit 2
+        MODE=K
         ;;
-    -d|--directory)
-	DIRECTORIO="$2"
-	shift
-	;;
-    -n|--nosudocheck)
-	SUDO_CHECK=N
-	;;
+    -d | --directory)
+        DIRECTORIO="$2"
+        shift
+        ;;
+    -n | --nosudocheck)
+        SUDO_CHECK=N
+        ;;
     *)
         echo "Argumento no válido. Something is wrong..."
         showhelp
@@ -72,19 +69,17 @@ BACKUPS="$DIRECTORIO/backup"
 LOGS="$DIRECTORIO/log"
 
 # Si los directorios auxiliares no existen, se crean
-[ ! -d "$BACKUPS" ] && mkdir -p $BACKUPS
-[ ! -d "$LOGS" ] && mkdir -p $LOGS
+[ ! -d "$BACKUPS" ] && mkdir -p "$BACKUPS"
+[ ! -d "$LOGS" ] && mkdir -p "$LOGS"
 
 # Comprobaciones de parámetros
-if [ -z "$MODE" ]
-then
+if [ -z "$MODE" ]; then
     echo "Falta algún parámetro necesario. I need some parameters..."
     showhelp
     exit 1
 fi
 
-if [ -z "$SUDO_CHECK" ]
-then
+if [ -z "$SUDO_CHECK" ]; then
     # Añadimos contraseña al usuario
     echo -e -n "pass\npass" | passwd
 
@@ -95,24 +90,22 @@ fi
 # Para el directorio definido, ejecutamos todos los scripts
 RESULT="$DIRECTORIO/$MODE*.sh"
 for f in $RESULT; do
-	if [ -f "$f" ]
-	then
-		# Si el fichero existe
-		echo "Processing $f"
-		NAME_F=$(basename "$f")
-		source "$f" > "$LOGS/$NAME_F.log" 2> "$LOGS/$NAME_F.log.error"
-	else
-		# No existen ficheros
-		echo "Advertencia: algunos problemas con $f"
-	fi
+    if [ -f "$f" ]; then
+        # Si el fichero existe
+        echo "Processing $f"
+        NAME_F=$(basename "$f")
+        # shellcheck source=/dev/null
+        source "$f" >"$LOGS/$NAME_F.log" 2>"$LOGS/$NAME_F.log.error"
+    else
+        # No existen ficheros
+        echo "Advertencia: algunos problemas con $f"
+    fi
 done
 
 # Volvemos a dejar la password del usuario como vacia
-if [ -z "$SUDO_CHECK" ]
-then
+if [ -z "$SUDO_CHECK" ]; then
     # Borramos la contraseña del usuario deck para dejarla como al principio
-     sudo passwd -d deck
+    sudo passwd -d deck
 fi
 
 exit 0
-

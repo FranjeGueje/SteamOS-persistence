@@ -25,7 +25,6 @@ echo "Cambiando permisos de la carpeta."
 chown 1000:1000 /home/deck/docker
 
 echo "Añadimos el usuario deck al grupo dockers."
-sudo usermod -a -G docker deck 
+sudo usermod -a -G docker deck
 
 sudo steamos-readonly enable
-

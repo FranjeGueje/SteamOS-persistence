@@ -5,7 +5,7 @@ echo "Revisamos si existe el directorio /etc/docker y su contenido."
 sudo ls -lah /etc/docker
 
 echo "Revisamos si está instalado el paquete docker."
-pacman -Qqe |grep docker
+pacman -Qqe | grep docker
 # Deshabilitamos los dockers
 echo "Vemos si están arrancados los servicios."
 sudo systemctl status docker.service
@@ -13,4 +13,3 @@ sudo systemctl status docker.socket
 
 echo "Añadimos el usuario deck al grupo dockers."
 sudo cat /etc/group | grep docker
-

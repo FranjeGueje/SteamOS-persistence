@@ -5,4 +5,3 @@
 sudo steamos-readonly disable
 sudo cp -f "$BACKUPS/fstab.bak" /etc/fstab
 sudo steamos-readonly enable
-
