@@ -6,7 +6,7 @@ sudo steamos-readonly disable
 echo "Creamos el directorio donde van a estar los dockers."
 mkdir -p /home/deck/docker
 sudo mkdir -p /etc/docker
-sudo cp docker/daemon.json /etc/docker/.
+sudo cp $DIRECTORIO/docker/daemon.json /etc/docker/.
 
 echo "Instalamos dockers."
 sudo pacman-key --init
@@ -22,7 +22,7 @@ sudo systemctl stop docker.socket
 
 # Cambiamos los permisos de la carpeta
 echo "Cambiando permisos de la carpeta."
-chown 1000:1000 /home/deck/docker
+sudo chown 1000:1000 /home/deck/docker -R
 
 echo "Añadimos el usuario deck al grupo dockers."
 sudo usermod -a -G docker deck
