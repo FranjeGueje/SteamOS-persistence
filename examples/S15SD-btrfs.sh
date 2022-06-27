@@ -1,7 +1,14 @@
 #!/bin/bash
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
-# FROM https://github.com/Trevo525/btrfdeck
+##############################################################################################################################################################
+# AUTOR: Paco Guerrero <fjgj1@hotmail.com> en colaboración con https://github.com/Trevo525/btrfdeck
+# ABOUT: Chequea el estado de fstab para comprobar las particiones montadas
+# REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
+##############################################################################################################################################################
+
+
+# FROM https://github.com/Trevo525/btrfdeck . Todos los aplausos para Trevo525
 
 echo "Backing up current files..."
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh

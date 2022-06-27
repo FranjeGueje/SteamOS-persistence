@@ -1,7 +1,14 @@
 #!/bin/bash
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
-# FROM https://github.com/Trevo525/btrfdeck
+##############################################################################################################################################################
+# AUTOR: Paco Guerrero <fjgj1@hotmail.com> en colaboración con https://github.com/Trevo525/btrfdeck
+# ABOUT: Deshace los cambios del mod de las microSD en formato btrfs.
+# REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
+##############################################################################################################################################################
+
+
+# FROM https://github.com/Trevo525/btrfdeck . Todos los aplausos para Trevo525
 
 echo "Temporarily disabling readonly filesystem..."
 sudo steamos-readonly disable

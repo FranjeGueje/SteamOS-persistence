@@ -1,6 +1,13 @@
 #! /bin/bash
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
+##############################################################################################################################################################
+# AUTOR: Paco Guerrero <fjgj1@hotmail.com>
+# ABOUT: Añade al fstab la partición indicada en la variable UUID (recuerda editarla en este fichero).
+# REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
+##############################################################################################################################################################
+
+
 UUID=ElValorDeLaParticionBTRFS
 PARTICION="/dev/disk/by-uuid/$UUID"
 
