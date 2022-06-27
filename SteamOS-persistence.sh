@@ -17,7 +17,7 @@
 # 1 --> Necesitas revisar el comando. Se sale tras mostrar la ayuda.
 # 2 --> Usas -S, -C o -K conjutamente.
 # 3 --> El directorio de script no existe.
-# 3 --> El directorio de script no existe.
+# 4 --> El usuario no tiene una contraseña en blanco.
 ##############################################################################################################################################################
 
 # Variables iniciales
@@ -34,6 +34,12 @@ function showhelp() {
     echo -e "\t-n|--nosudo\t\tNo necesitamos tareas de sudo.// Don't need sudo tasks."
     exit 1
 }
+
+# Chequeamos que la contraseña sea nula, que no tenga password el usuario
+passwd -S | cut -d ' ' -f2 | grep NP >/dev/null || \
+    echo -e "El usuario tiene una contraseña personalizada. La contraseña debe de ser vacía para este script." && \
+    echo -e "The user deck has not a blank password. This script require a blank password."\
+    && exit 4
 
 # Mientras el número de argumentos NO SEA 0
 while [ $# -ne 0 ]; do
