@@ -14,7 +14,7 @@ Si además, añadimos este script al Game Mode como si de un "Juego no de Steam"
 - Modificar scripts de SteamOS, como por ejemplo, el montaje de tarjetas SD en formato btrfs. Ver https://github.com/Trevo525/btrfdeck
 
 ## Parámetros de uso
-SteamOS-persistence.sh -S|-C|-K [-d directory] [-n]
+SteamOS-persistence.sh -S|C|K [-d directory]
 
 Options:
 - -h|--help - Esta ayuda. This help.
@@ -22,4 +22,3 @@ Options:
 - -C|--checkmode - Ejecutar en modo Chequeo. It'll runing on Check Persistence Mode.
 - -K|--killmode - Ejecutar en modo Deshacer. It'll runing on Undo Persistence Mode.
 - -d|--directory - Se indica donde se encuentran esos scripts. Por defecto "/home/.SteamOS-persistence.d".
-- -n|--nosudo - No necesitamos tareas de sudo. Don't need sudo tasks.

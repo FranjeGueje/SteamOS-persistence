@@ -31,15 +31,12 @@ function showhelp() {
     echo -e "\t-C|--checkmode\t\tEjecutar en modo Chequeo.// It'll runing on Check Persistence Mode."
     echo -e "\t-K|--killmode\t\tEjecutar en modo Deshacer.// It'll runing on Undo Persistence Mode."
     echo -e "\t-d|--directory\t\tSe indica donde se encuentran esos scripts. Por defecto $DIRECTORIO // Where are the scripts?"
-    echo -e "\t-n|--nosudo\t\tNo necesitamos tareas de sudo.// Don't need sudo tasks."
     exit 1
 }
 
 # Chequeamos que la contraseña sea nula, que no tenga password el usuario
-passwd -S | cut -d ' ' -f2 | grep NP >/dev/null || \
-    echo -e "El usuario tiene una contraseña personalizada. La contraseña debe de ser vacía para este script." && \
-    echo -e "The user deck has not a blank password. This script require a blank password."\
-    && exit 4
+[ "$(passwd -S | cut -d ' ' -f2)" = "NP" ] || echo -e "El usuario tiene una contraseña personalizada. La contraseña debe de ser vacía para este script." && \
+    echo -e "The user deck has not a blank password. This script require a blank password." && exit 4
 
 # Mientras el número de argumentos NO SEA 0
 while [ $# -ne 0 ]; do
@@ -64,9 +61,6 @@ while [ $# -ne 0 ]; do
         DIRECTORIO="$2"
         shift
         ;;
-    -n | --nosudocheck)
-        SUDO_CHECK=N
-        ;;
     *)
         echo "Argumento no válido.// Something is wrong..."
         showhelp
@@ -76,7 +70,7 @@ while [ $# -ne 0 ]; do
 done
 
 # Si el directorio no existe, se sale
-[ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && showhelp && exit 3
+[ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && showhelp
 
 # Variables donde guardar Backups y Logs
 BACKUPS="$DIRECTORIO/backup"
@@ -93,13 +87,9 @@ if [ -z "$MODE" ]; then
     exit 1
 fi
 
-if [ -z "$SUDO_CHECK" ]; then
-    # Añadimos contraseña al usuario
-    echo -e -n "pass\npass" | passwd
-
-    # Ejecutamos sudo para ver si podemos ser super user
-    echo -e -n "pass" | sudo -S ls >/dev/null 2>/dev/null || exit 1
-fi
+# Añadimos contraseña al usuario, si no podemos ser super user, salimos
+echo -e -n "pass\npass" | passwd
+echo -e -n "pass" | sudo -S ls >/dev/null 2>/dev/null || exit 4
 
 # Para el directorio definido, ejecutamos todos los scripts
 RESULT="$DIRECTORIO/$MODE*.sh"
@@ -116,10 +106,8 @@ for f in $RESULT; do
     fi
 done
 
-# Volvemos a dejar la password del usuario como vacia
-if [ -z "$SUDO_CHECK" ]; then
-    # Borramos la contraseña del usuario deck para dejarla como al principio
-    sudo passwd -d deck
-fi
+
+# Borramos la contraseña del usuario deck para dejarla como al principio, blanco
+sudo passwd -d deck
 
 exit 0
