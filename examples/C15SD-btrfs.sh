@@ -17,5 +17,5 @@ echo "### Comprobamos las diferencias entre los ficheros actuales y los original
 echo "* Diff de sdcard-mount.sh *"
 diff /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh
 
-echo "* Diff de format-sdcard.sh "
+echo "* Diff de format-sdcard.sh *"
 diff /usr/lib/hwsupport/format-sdcard.sh "$BACKUPS"/format-sdcard.sh

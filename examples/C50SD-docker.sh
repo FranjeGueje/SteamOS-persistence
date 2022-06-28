@@ -9,16 +9,16 @@
 
 
 # Revisamos directorio ...
-echo "Revisamos si existe el directorio /etc/docker y su contenido."
-sudo ls -lah /etc/docker
+echo -e "### Revisamos si existe el directorio /etc/docker y su contenido. ###"
+ls -lah /etc/docker
 
-echo "Revisamos si está instalado el paquete docker."
+echo -e "\n### Revisamos si existen paquetes docker instalados. ###"
 pacman -Qqe | grep docker
 
 # Deshabilitamos los dockers
-echo "Vemos si están arrancados los servicios."
-sudo systemctl status docker.service
-sudo systemctl status docker.socket
+echo -e "\n### Comporobando si están arrancados los servicios de dockers. ###"
+systemctl status docker.service
+systemctl status docker.socket
 
-echo "Añadimos el usuario deck al grupo dockers."
-sudo cat /etc/group | grep docker
+echo -e "\n### Comprobamos si el usuario deck pertenece al grupo dockers. ###"
+cat /etc/group | grep docker

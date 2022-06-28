@@ -9,7 +9,9 @@
 
 
 # Buscamos los locale comentados
+echo "### Buscamos los locale comentados ###"
 grep "#es_ES.UTF-8 UTF-8" </etc/locale.gen && echo "¡Se encuentra locale comentado!"
 
 # Buscamos los locale activos
+echo -e "\n### Buscamos los locale activos ###"
 grep "es_ES.UTF-8 UTF-8" </etc/locale.gen | grep -v '#' && echo "¡Se encuentra activo!"

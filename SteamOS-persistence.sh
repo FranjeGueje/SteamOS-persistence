@@ -23,6 +23,7 @@
 # Variables iniciales
 DIRECTORIO="/home/.SteamOS-persistence.d"
 
+DIALOG=S
 function showhelp() {
     echo "Uso/Usage: $0 -S|C|K [-d directorio]"
     echo "Opciones/Options:"
@@ -34,9 +35,15 @@ function showhelp() {
     exit 1
 }
 
-# Chequeamos que la contraseña sea nula, que no tenga password el usuario
-[ "$(passwd -S | cut -d ' ' -f2)" = "NP" ] || echo -e "El usuario tiene una contraseña personalizada. La contraseña debe de ser vacía para este script." && \
-    echo -e "The user deck has not a blank password. This script require a blank password." && exit 4
+function showLogs() {
+    echo -e "Mostrando los mensajes con dialog"
+    
+    RESULT="$LOGS/$MODE*log*"
+    for f in $RESULT; do
+        NAME_F=$(basename "$f")
+	dialog --title "$NAME_F" --textbox $f 0 0
+    done 
+}
 
 # Mientras el número de argumentos NO SEA 0
 while [ $# -ne 0 ]; do
@@ -69,6 +76,9 @@ while [ $# -ne 0 ]; do
     shift
 done
 
+# Comprobaciones de parámetros
+[ -z "$MODE" ] && echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
+
 # Si el directorio no existe, se sale
 [ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && showhelp
 
@@ -80,8 +90,12 @@ LOGS="$DIRECTORIO/log"
 [ ! -d "$BACKUPS" ] && mkdir -p "$BACKUPS"
 [ ! -d "$LOGS" ] && mkdir -p "$LOGS"
 
-# Comprobaciones de parámetros
-[ -z "$MODE" ] && echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
+# Chequeamos que la contraseña sea nula, que no tenga password el usuario
+if [ ! "$(passwd -S | cut -d ' ' -f2)" = "NP" ];then
+    echo -e "El usuario tiene una contraseña personalizada. La contraseña debe de ser vacía para este script."
+    echo -e "The user deck has not a blank password. This script require a blank password."
+    exit 4
+fi
 
 # Añadimos contraseña al usuario, si no podemos ser super user, salimos
 echo -e -n "pass\npass" | passwd
@@ -102,6 +116,8 @@ for f in $RESULT; do
     fi
 done
 
+# Mostramos resultado
+[ "$DIALOG" ] && showLogs
 
 # Borramos la contraseña del usuario deck para dejarla como al principio, blanco
 sudo passwd -d deck
