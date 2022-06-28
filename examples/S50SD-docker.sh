@@ -16,17 +16,17 @@ DIRDOCKER=/home/deck/docker
 
 sudo steamos-readonly disable
 
-echo "Creamos el directorio donde van a estar los dockers."
+echo "### Creamos el directorio donde van a estar los dockers. ###"
 mkdir -p "$DIRDOCKER"
 sudo mkdir -p /etc/docker
 sudo cp "$DIRECTORIO"/docker/daemon.json /etc/docker/.
 
-echo "Instalamos dockers."
+echo -e "\n### Instalamos dockers. ###"
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
 sudo pacman -S docker --noconfirm
 # Deshabilitamos los dockers
-echo "Deshabilitamos el servicio de dockers para que no se arranque automáticamente."
+echo -e "\n### Deshabilitamos el servicio de dockers para que no se arranque automáticamente. ###"
 sudo systemctl disable docker.service docker.socket
 
 # Paramos el servicio
@@ -34,10 +34,11 @@ sudo systemctl stop docker.service
 sudo systemctl stop docker.socket
 
 # Cambiamos los permisos de la carpeta
-echo "Cambiando permisos de la carpeta."
+echo -e "\n### Cambiando permisos de la carpeta. ###"
 sudo chown 1000:1000 "$DIRDOCKER" -R
 
-echo "Añadimos el usuario deck al grupo dockers."
+echo -e "\n### Añadimos el usuario deck al grupo dockers. ###"
 sudo usermod -a -G docker deck
 
 sudo steamos-readonly enable
+

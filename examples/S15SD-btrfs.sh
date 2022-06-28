@@ -14,19 +14,20 @@
 [ -z "$DIRECTORIO" ] && DIRECTORIO="/home/.SteamOS-persistence.d"
 [ -z "$BACKUP" ] && BACKUP="$DIRECTORIO/backup"
 
-echo "Backing up current files..."
+echo "### Backing up current files..."
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh
 cp /usr/lib/hwsupport/format-sdcard.sh "$BACKUPS"/format-sdcard.sh
-echo "Temporarily disabling readonly filesystem..."
+echo "### Temporarily disabling readonly filesystem..."
 sudo steamos-readonly disable
-echo "Removing current files..."
+echo "### Removing current files..."
 sudo rm /usr/lib/hwsupport/sdcard-mount.sh
 sudo rm /usr/lib/hwsupport/format-sdcard.sh
-echo "Copying modified files..."
+echo "### Copying modified files..."
 sudo cp "$DIRECTORIO"/btrfdeck/modified/sdcard-mount.sh /usr/lib/hwsupport/sdcard-mount.sh
 sudo cp "$DIRECTORIO"/btrfdeck/modified/format-sdcard.sh /usr/lib/hwsupport/format-sdcard.sh
-echo "Editing new file permissions..."
+echo "### Editing new file permissions..."
 sudo chmod 755 /usr/lib/hwsupport/sdcard-mount.sh /usr/lib/hwsupport/format-sdcard.sh
-echo "Re-enabling readonly filesystem..."
+echo "### Re-enabling readonly filesystem..."
 sudo steamos-readonly enable
 echo "Done!"
+

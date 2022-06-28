@@ -21,5 +21,6 @@ function changeLocal() {
 
 }
 
-echo Buscamos si está el locale es_ES-UTF8 activo
+echo "### Buscamos si está el locale es_ES-UTF8 activo o si se necesita cambiar.  ###"
 grep "#es_ES.UTF-8 UTF-8" </etc/locale.gen && echo "¡Se necesita cambiar el locale!" && changeLocal
+

@@ -7,5 +7,13 @@
 # REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 ##############################################################################################################################################################
 
+sudo steamos-readonly disable
 
-echo Work in progress...
+echo "### Instalamos paquetes a través de pacman. ###"
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+sudo pacman -S dialog --noconfirm
+
+sudo steamos-readonly enable
+
+
