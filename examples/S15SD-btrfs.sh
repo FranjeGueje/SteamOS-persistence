@@ -10,6 +10,10 @@
 
 # FROM https://github.com/Trevo525/btrfdeck . Todos los aplausos para Trevo525
 
+# Si la variable que usa el programa no está creada, se crea con los valores por defecto
+[ -z "$DIRECTORIO" ] && DIRECTORIO="/home/.SteamOS-persistence.d"
+[ -z "$BACKUP" ] && BACKUP="$DIRECTORIO/backup"
+
 echo "Backing up current files..."
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh
 cp /usr/lib/hwsupport/format-sdcard.sh "$BACKUPS"/format-sdcard.sh
