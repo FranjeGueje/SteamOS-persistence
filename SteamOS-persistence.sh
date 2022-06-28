@@ -23,7 +23,6 @@
 # Variables iniciales
 DIRECTORIO="/home/.SteamOS-persistence.d"
 
-DIALOG=S
 function showhelp() {
     echo "Uso/Usage: $0 -S|C|K [-d directorio]"
     echo "Opciones/Options:"
@@ -67,6 +66,9 @@ while [ $# -ne 0 ]; do
     -d | --directory)
         DIRECTORIO="$2"
         shift
+        ;;
+    -D | --dialog)
+        DIALOG=D
         ;;
     *)
         echo "Argumento no válido.// Something is wrong..."
@@ -116,7 +118,7 @@ for f in $RESULT; do
     fi
 done
 
-# Mostramos resultado
+# Mostramos resultado si la variable está definida
 [ "$DIALOG" ] && showLogs
 
 # Borramos la contraseña del usuario deck para dejarla como al principio, blanco
