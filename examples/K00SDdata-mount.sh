@@ -8,6 +8,9 @@
 ##############################################################################################################################################################
 
 
+# Si la variable que usa el programa no está creada, se crea con los valores por defecto
+[ -z "$BACKUP" ] && BACKUP="/home/.SteamOS-persistence.d/backup"
+
 # Devolvemos la copia de fstab a su sitio
 sudo steamos-readonly disable
 sudo cp -f "$BACKUPS/fstab.bak" /etc/fstab
