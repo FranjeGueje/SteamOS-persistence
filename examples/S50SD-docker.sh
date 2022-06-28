@@ -9,6 +9,9 @@
 ##############################################################################################################################################################
 
 
+# Si la variable que usa el programa no está creada, se crea con los valores por defecto
+[ -z "$DIRECTORIO" ] && DIRECTORIO="/home/.SteamOS-persistence.d"
+
 DIRDOCKER=/home/deck/docker
 
 sudo steamos-readonly disable
