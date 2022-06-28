@@ -8,6 +8,9 @@
 ##############################################################################################################################################################
 
 
+# Si la variable que usa el programa no está creada, se crea con los valores por defecto
+[ -z "$BACKUP" ] && BACKUP="/home/.SteamOS-persistence.d/backup"
+
 UUID=ElValorDeLaParticionBTRFS
 PARTICION="/dev/disk/by-uuid/$UUID"
 
