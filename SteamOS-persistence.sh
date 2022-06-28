@@ -24,7 +24,7 @@
 DIRECTORIO="/home/.SteamOS-persistence.d"
 
 function showhelp() {
-    echo "Uso/Usage: $0 -S|C|K [-d directorio] [-n]"
+    echo "Uso/Usage: $0 -S|C|K [-d directorio]"
     echo "Opciones/Options:"
     echo -e "\t-h|--help\t\tEsta ayuda. This help."
     echo -e "\t-S|--savemode\t\tEjecutar en modo Salvado.// It'll runing on Save Persistence Mode."
@@ -81,17 +81,13 @@ LOGS="$DIRECTORIO/log"
 [ ! -d "$LOGS" ] && mkdir -p "$LOGS"
 
 # Comprobaciones de parámetros
-if [ -z "$MODE" ]; then
-    echo "Falta algún parámetro necesario.// I need some parameters..."
-    showhelp
-    exit 1
-fi
+[ -z "$MODE" ] && echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
 
 # Añadimos contraseña al usuario, si no podemos ser super user, salimos
 echo -e -n "pass\npass" | passwd
 echo -e -n "pass" | sudo -S ls >/dev/null 2>/dev/null || exit 4
 
-# Para el directorio definido, ejecutamos todos los scripts
+# Para el directorio definido, ejecutamos todos los scripts correspondientes (S, C, o K)
 RESULT="$DIRECTORIO/$MODE*.sh"
 for f in $RESULT; do
     if [ -f "$f" ]; then
