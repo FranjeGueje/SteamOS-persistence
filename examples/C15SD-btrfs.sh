@@ -11,7 +11,7 @@
 # FROM https://github.com/Trevo525/btrfdeck . Todos los aplausos para Trevo525
 
 # Si la variable que usa el programa no está creada, se crea con los valores por defecto
-[ -z "$BACKUP" ] && BACKUP="/home/.SteamOS-persistence.d/backup"
+[ -z "$BACKUPS" ] && BACKUPS="/home/.SteamOS-persistence.d/backup"
 
 echo "### Comprobamos las diferencias entre los ficheros actuales y los originales ###"
 echo "* Diff de sdcard-mount.sh *"
