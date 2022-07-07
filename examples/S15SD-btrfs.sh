@@ -12,7 +12,7 @@
 
 # Si la variable que usa el programa no está creada, se crea con los valores por defecto
 [ -z "$DIRECTORIO" ] && DIRECTORIO="/home/.SteamOS-persistence.d"
-[ -z "$BACKUPS" ] && BACKUPS="$DIRECTORIO/backup"
+[ -z "$BACKUP" ] && BACKUP="$DIRECTORIO/backup"
 
 echo "### Backing up current files..."
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh
