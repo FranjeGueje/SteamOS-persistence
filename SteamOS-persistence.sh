@@ -24,13 +24,12 @@
 DIRECTORIO="/home/.SteamOS-persistence.d"
 
 function showhelp() {
-    echo "Uso/Usage: $0 -S|C|K [-d directorio]"
-    echo "Opciones/Options:"
-    echo -e "\t-h|--help\t\tEsta ayuda. This help."
-    echo -e "\t-S|--savemode\t\tEjecutar en modo Salvado.// It'll runing on Save Persistence Mode."
-    echo -e "\t-C|--checkmode\t\tEjecutar en modo Chequeo.// It'll runing on Check Persistence Mode."
-    echo -e "\t-K|--killmode\t\tEjecutar en modo Deshacer.// It'll runing on Undo Persistence Mode."
-    echo -e "\t-d|--directory\t\tSe indica donde se encuentran esos scripts. Por defecto $DIRECTORIO // Where are the scripts?"
+    echo -e "Uso/Usage:\n\t$0 -S|C|K [-d directorio]\n\t$0 [-d directorio]\n\
+    \t-h|--help\t\tEsta ayuda. This help.\n\
+    \t-S|--savemode\t\tEjecutar en modo Salvado.// It'll runing on Save Persistence Mode.\n\
+    \t-C|--checkmode\t\tEjecutar en modo Chequeo.// It'll runing on Check Persistence Mode.\n\
+    \t-K|--killmode\t\tEjecutar en modo Deshacer.// It'll runing on Undo Persistence Mode.\n\
+    \t-d|--directory\t\tSe indica donde se encuentran esos scripts. Por defecto $DIRECTORIO // Where are the scripts?"
     exit 1
 }
 
@@ -39,11 +38,11 @@ function showLogs() {
     
     RESULT="$LOGS/$MODE*log*"
     for f in $RESULT; do
-        NAME_F=$(basename "$f")
-	dialog --title "$NAME_F" --textbox $f 0 0
+        clear && echo -e "    --> FICHERO $f\n\n" && cat "$f" && echo -e "\n\n\n    --> Pulse intro para continuar..." && read -r
     done 
 }
 
+# Recopilamos argumentos
 # Mientras el número de argumentos NO SEA 0
 while [ $# -ne 0 ]; do
     case "$1" in
@@ -67,9 +66,6 @@ while [ $# -ne 0 ]; do
         DIRECTORIO="$2"
         shift
         ;;
-    -D | --dialog)
-        DIALOG=D
-        ;;
     *)
         echo "Argumento no válido.// Something is wrong..."
         showhelp
@@ -78,32 +74,55 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-# Comprobaciones de parámetros
-[ -z "$MODE" ] && echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
+#
+# Tras recoger todos los argumentos, comprobamos parámetros, y montamos parámetros finales
+#
 
 # Si el directorio no existe, se sale
 [ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && showhelp
 
+# Variables para la ejecución de dialog
+DIALOGPATH="$DIRECTORIO/util"
+DIALOG="$DIALOGPATH/dialog"
+DIALOGMODULE="$DIALOGPATH/dialog.sh"
 # Variables donde guardar Backups y Logs
 BACKUPS="$DIRECTORIO/backup"
 LOGS="$DIRECTORIO/log"
+
+# Si no tenemos paramétros para ejecutarse automáticamente en algún modo y existe la utilidad portable dialog, la usamos.
+if [ -z "$MODE" ] && [ -f "$DIALOG" ]; then
+    echo "Usamos dialog"
+    # shellcheck source=/dev/null
+    source "$DIALOGMODULE"
+    # Aquí no debería de llegar, ya toma el flujo de dialog
+    exit 88
+else
+    # Si no tenemos dialog, y no hemos puesto ningún modo: nos falta un parámetro y salimos. Mostramos la ayuda antes
+    [ -z "$MODE" ] && echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
+fi
+
+#
+# Chequeamos que la contraseña sea nula, que no tenga password el usuario
+#
+if [ ! "$(passwd -S | cut -d ' ' -f2)" = "NP" ];then
+    echo -e "El usuario tiene una contraseña personalizada y se está lanzando de forma automática."
+    echo -e "The user deck has not a blank password and you're running this script in automatic-mode."
+    exit 4
+fi
+
+# Añadimos contraseña al usuario, si no podemos ser super user, salimos
+echo El usuario no tiene password. Añadimos contraseña al usuario, si no podemos ser super user, salimos
+echo -e -n "pass\npass" | passwd
+echo -e -n "pass" | sudo -S ls >/dev/null 2>/dev/null || exit 4
 
 # Si los directorios auxiliares no existen, se crean
 [ ! -d "$BACKUPS" ] && mkdir -p "$BACKUPS"
 [ ! -d "$LOGS" ] && mkdir -p "$LOGS"
 
-# Chequeamos que la contraseña sea nula, que no tenga password el usuario
-if [ ! "$(passwd -S | cut -d ' ' -f2)" = "NP" ];then
-    echo -e "El usuario tiene una contraseña personalizada. La contraseña debe de ser vacía para este script."
-    echo -e "The user deck has not a blank password. This script require a blank password."
-    exit 4
-fi
 
-# Añadimos contraseña al usuario, si no podemos ser super user, salimos
-echo -e -n "pass\npass" | passwd
-echo -e -n "pass" | sudo -S ls >/dev/null 2>/dev/null || exit 4
-
-# Para el directorio definido, ejecutamos todos los scripts correspondientes (S, C, o K)
+#
+# Ejecutamos para el directorio definido todos los scripts correspondientes (S, C, o K)
+#
 RESULT="$DIRECTORIO/$MODE*.sh"
 for f in $RESULT; do
     if [ -f "$f" ]; then
@@ -119,9 +138,9 @@ for f in $RESULT; do
 done
 
 # Mostramos resultado si la variable está definida
-[ "$DIALOG" ] && showLogs
+showLogs
 
-# Borramos la contraseña del usuario deck para dejarla como al principio, blanco
+# Dejamos al usuario sin contraseña de nuevo
 sudo passwd -d deck
 
 exit 0

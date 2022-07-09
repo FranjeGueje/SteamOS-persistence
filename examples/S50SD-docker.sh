@@ -1,4 +1,5 @@
 #! /bin/bash
+# Instala el servicio docker, pero lo hace en otro directorio ($DIRDOCKER). También lo deja deshabilitado para que no ararnque automáticamente.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
@@ -19,7 +20,7 @@ sudo steamos-readonly disable
 echo "### Creamos el directorio donde van a estar los dockers. ###"
 mkdir -p "$DIRDOCKER"
 sudo mkdir -p /etc/docker
-sudo cp "$DIRECTORIO"/docker/daemon.json /etc/docker/.
+echo -en "{\n  \"data-root\": \"/home/deck/docker\"\n}\n" | sudo tee /etc/docker/daemon.json
 
 echo -e "\n### Instalamos dockers. ###"
 sudo pacman-key --init

@@ -1,4 +1,5 @@
 #! /bin/bash
+# Añade al fstab las particiones de mi NAS.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################

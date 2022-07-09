@@ -1,4 +1,5 @@
 #!/bin/bash
+# Muestra las diferencias entre los ficheros utilizados y los del backup.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################

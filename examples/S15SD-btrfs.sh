@@ -1,9 +1,10 @@
 #!/bin/bash
+# Instala los scripts para usar btrfs en las tarjetas SD
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com> en colaboración con https://github.com/Trevo525/btrfdeck
-# ABOUT: Chequea el estado de fstab para comprobar las particiones montadas
+# ABOUT: Instala los scripts para usar btrfs en las tarjetas SD
 # REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 ##############################################################################################################################################################
 
@@ -12,7 +13,7 @@
 
 # Si la variable que usa el programa no está creada, se crea con los valores por defecto
 [ -z "$DIRECTORIO" ] && DIRECTORIO="/home/.SteamOS-persistence.d"
-[ -z "$BACKUP" ] && BACKUP="$DIRECTORIO/backup"
+[ -z "$BACKUPS" ] && BACKUPS="$DIRECTORIO/backup"
 
 echo "### Backing up current files..."
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh

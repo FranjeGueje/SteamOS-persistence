@@ -1,4 +1,5 @@
 #! /bin/bash
+# Chequea los locale dentro del fichero locale.gen (comentados y activos).
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################

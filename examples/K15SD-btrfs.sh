@@ -1,4 +1,5 @@
 #!/bin/bash
+# Deshace los cambios del mod de las microSD en formato btrfs.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
@@ -11,7 +12,7 @@
 # FROM https://github.com/Trevo525/btrfdeck . Todos los aplausos para Trevo525
 
 # Si la variable que usa el programa no está creada, se crea con los valores por defecto
-[ -z "$BACKUP" ] && BACKUP="/home/.SteamOS-persistence.d/backup"
+[ -z "$BACKUPS" ] && BACKUPS="/home/.SteamOS-persistence.d/backup"
 
 echo "Temporarily disabling readonly filesystem..."
 sudo steamos-readonly disable
