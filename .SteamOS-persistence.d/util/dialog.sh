@@ -1,11 +1,22 @@
 #! /bin/bash
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN:Este Script debe de salir con exit. Tiene un flujo alternativoal desatendido
 
+
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com>
 # ABOUT: Este script importa lo necesario para que dialog funcione desde el script que lo invoca y todas sus funciones.
-# REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN:Este Script debe de salir con exit. Tiene un flujo alternativoal desatendido
+#
+# NOTA: Es necesario este script como parte de SteamOS-persistence si se requiereel modo asistente.
+#
+# REQUISITOS: este script debe de devolver un valor o salir con exit.
+#
+# EXITs:
+# 0 --> Salida correcta.
+# 8 --> Se sale a petición del usuario.
+# 4 --> El usuario tiene una contraseña en blanco y se encontró un problema al cambiarla
+# 88 -> No se encuntra la utilidad dialog y se necesita
 ##############################################################################################################################################################
+
 
 # Importamos las librerías necesarias
 LD_LIBRARY_PATH="$DIALOGPATH"

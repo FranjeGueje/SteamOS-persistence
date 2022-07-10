@@ -14,6 +14,7 @@
 
 UUID=UUID=ElValorDeLaParticionBTRFS
 PARTICION="/dev/disk/by-uuid/$UUID"
+ToADD="UUID=$UUID     /home/deck    btrfs   noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag 0 0"
 
 function addToFstab()
 {
@@ -28,7 +29,7 @@ function addToFstab()
     cp /etc/fstab "$BACKUPS"/fstab.bak -f
     # Añadimos la línea al fstab
     sudo steamos-readonly disable
-    echo -e "UUID=$UUID     /home/deck    btrfs   noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag 0 0" | sudo tee -a /etc/fstab
+    echo -e "$ToADD" | sudo tee -a /etc/fstab
     sudo steamos-readonly enable
     # Recargar los demonios no haría falta, mejor sería reiniciar
     # sudo systemctl daemon-reload
@@ -36,5 +37,11 @@ function addToFstab()
 }
 
 # Vemos si el actual fstab tiene el punto de montaje btrfs, si no, llama a la funcion para ponerlo
-grep "/home/deck" < /etc/fstab | grep btrfs || echo "### Es necesario añadir al fstab la partición /home/deck ###" && addToFstab
+LINEAS=$(grep "/home/deck" < /etc/fstab | grep -c btrfs)
+if [ "$LINEAS" = "0" ]; then
+    echo "### Es necesario añadir al fstab la partición /home/deck ###"
+    addToFstab
+else
+    echo "### No es necesario, ya está añadido ###"
+fi
 

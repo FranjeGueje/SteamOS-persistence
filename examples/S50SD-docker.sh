@@ -5,7 +5,6 @@
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com>
 # ABOUT: Instala el servicio docker, pero lo hace en otro directorio ($DIRDOCKER). También lo deja deshabilitado para que no ararnque automáticamente.
-# NOTA: Revisad el fichero docker/daemon.json para la ubicación del directorio de dockers.
 # REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 ##############################################################################################################################################################
 

@@ -22,4 +22,4 @@ systemctl status docker.service
 systemctl status docker.socket
 
 echo -e "\n### Comprobamos si el usuario deck pertenece al grupo dockers. ###"
-cat /etc/group | grep docker
+grep docker < /etc/group

@@ -9,7 +9,14 @@
 ##############################################################################################################################################################
 
 echo -e "### Se comprueba si hay que añadir al archivo /etc/fstab ###"
-grep "/mnt/nas" < /etc/fstab >/dev/null || echo -e "\n*** Se añade al archivo /etc/fstab ***" && \
-	echo -e "\n192.168.3.2:/volume1/EmulationStation 	/mnt/nas/Emu		nfs	hard,noauto,user,async 0 0\n\
-192.168.3.2:/volume1/SteamOS 	/mnt/nas/SteamOS		nfs	hard,noauto,user,async 0 0" | sudo tee -a /etc/fstab
 
+LINEAS=$(grep -c "/mnt/nas" < /etc/fstab)
+if [ "$LINEAS" = "0" ]; then
+    echo -e "\n*** Se añade al archivo /etc/fstab ***"
+    echo -e "\n192.168.3.2:/volume1/EmulationStation 	/mnt/nas/Emu		nfs	hard,noauto,user,async 0 0\n\
+192.168.3.2:/volume1/SteamOS 	/mnt/nas/SteamOS		nfs	hard,noauto,user,async 0 0" | sudo tee -a /etc/fstabToFstab
+else
+    echo -e "\n*** No es necesario añadirlo al archivo /etc/fstab ***"
+fi
+
+	

@@ -1,10 +1,10 @@
 #!/bin/bash
-# Muestra las diferencias entre los ficheros utilizados y los del backup.
+# Muestra las diferencias entre los ficheros utilizados para el tratamiento de las microSD y de los que hicimos copia.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com> en colaboración con https://github.com/Trevo525/btrfdeck
-# ABOUT: Muestra las diferencias entre los ficheros utilizados y los del backup.
+# ABOUT: Muestra las diferencias entre los ficheros utilizados para el tratamiento de las microSD y de los que hicimos copia.
 # REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 ##############################################################################################################################################################
 
