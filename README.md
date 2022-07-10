@@ -8,7 +8,7 @@ SteamOS en cada reinicio utiliza y sobreescribe un nuevo grupo de particiones A 
 
 Si además, añadimos este script al Game Mode como si de un "Juego no de Steam" se tratase, tras la actualización, sólo tendremos que pulsar un botón y podremos hacer nuestras modificaciones automáticamente.
 
-## Ejemplos de uso (ya no probados)
+## Ejemplos de uso (ya probados por mi)
 - Montar una partitión btrfs automáticamente a través de la modificación del archivo `/etc/fstab`.
 - Instalar paquetes a través de pacman.
 - Modificar scripts de SteamOS, como por ejemplo, el montaje de tarjetas SD en formato btrfs. Ver https://github.com/Trevo525/btrfdeck
