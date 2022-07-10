@@ -1,9 +1,10 @@
 #! /bin/bash
+# Instala los locales es_ES.UTF-8 y los pone activos
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com>
-# ABOUT: Chequea el estado de los paquetes instalados
+# ABOUT: Instala los locales es_ES.UTF-8 y los pone activos
 # REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 ##############################################################################################################################################################
 

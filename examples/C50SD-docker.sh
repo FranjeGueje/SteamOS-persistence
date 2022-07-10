@@ -1,4 +1,5 @@
 #! /bin/bash
+# Chequea el estado de la instalación docker.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
@@ -21,4 +22,4 @@ systemctl status docker.service
 systemctl status docker.socket
 
 echo -e "\n### Comprobamos si el usuario deck pertenece al grupo dockers. ###"
-cat /etc/group | grep docker
+grep docker < /etc/group

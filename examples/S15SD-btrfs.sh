@@ -1,9 +1,10 @@
 #!/bin/bash
+# Instala los scripts para usar btrfs en las tarjetas SD
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com> en colaboración con https://github.com/Trevo525/btrfdeck
-# ABOUT: Chequea el estado de fstab para comprobar las particiones montadas
+# ABOUT: Instala los scripts para usar btrfs en las tarjetas SD
 # REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 ##############################################################################################################################################################
 

@@ -1,4 +1,5 @@
 #! /bin/bash
+# Chequea el estado de fstab para comprobar las particiones montadas.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################

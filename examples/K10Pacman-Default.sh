@@ -1,4 +1,5 @@
 #! /bin/bash
+# Desinstala los paquetes instalados en el otro script.
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################

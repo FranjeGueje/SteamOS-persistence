@@ -1,4 +1,4 @@
-Esta carpeta es el corazón del Script. Aquí se lanzaran todos los scripts personalizados que queramos para hacer pesistencia en nuestra Steam Deck.
+Esta carpeta es el corazón del Script. Aquí se lanzarán todos los scripts personalizados que queramos para hacer pesistencia en nuestra Steam Deck.
 El único requisito, que empiecen por S y terminen por .sh
 
 Del mismo modo, y opcionalmente, los scripts que pongamos en esta carpeta y que comiencen por K y terminen por sh desharán los cambios anteriores.
