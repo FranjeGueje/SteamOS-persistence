@@ -12,7 +12,7 @@ sudo steamos-readonly disable
 
 echo "### Instalamos paquetes a través de pacman. ###"
 sudo pacman-key --init
-sudo pacman-key --populate archlinux
+sudo pacman-key --populate archlinux holo
 sudo pacman -S nfs-utils bash-completion --noconfirm
 
 sudo steamos-readonly enable

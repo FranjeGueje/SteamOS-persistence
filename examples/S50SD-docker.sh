@@ -23,7 +23,7 @@ echo -en "{\n  \"data-root\": \"/home/deck/docker\"\n}\n" | sudo tee /etc/docker
 
 echo -e "\n### Instalamos dockers. ###"
 sudo pacman-key --init
-sudo pacman-key --populate archlinux
+sudo pacman-key --populate archlinux holo
 sudo pacman -S docker --noconfirm
 # Deshabilitamos los dockers
 echo -e "\n### Deshabilitamos el servicio de dockers para que no se arranque automáticamente. ###"
