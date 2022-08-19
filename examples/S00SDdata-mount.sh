@@ -21,8 +21,11 @@ function addToFstab()
     # Comprobamos si es la primera vez que ejectamos este script, o lo que es lo mismo, que nuestra unidad btrfs no tiene ningún fichero
     mkdir /tmp/deck-btrfs && sudo mount "$PARTICION" /tmp/deck-btrfs -t btrfs -o noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag
     # Si el punto de montaje tiene cero ficheros entonces copiamos el contenido de home deck al disco nuevo
-    sudo find /tmp/deck-btrfs -type f | sudo wc -l && echo -e "\n### La partición está vacía, se procede a la copia. ###" && \
-	    sudo cp -a /home/deck/. /tmp/deck-btrfs
+    NUMFICHERO=$(sudo find /tmp/deck-btrfs -type f | sudo wc -l)
+    if [ $NUMFICHERO -eq 0 ]; then
+        echo -e "\n### La partición está vacía, se procede a la copia. ###"
+        sudo cp -a /home/deck/. /tmp/deck-btrfs
+    fi
     sudo umount /tmp/deck-btrfs
     
     # Hacemos copia del fichero a modificar
