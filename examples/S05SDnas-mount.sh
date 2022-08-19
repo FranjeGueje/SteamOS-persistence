@@ -20,4 +20,5 @@ else
     echo -e "\n*** No es necesario añadirlo al archivo /etc/fstab ***"
 fi
 
+# Creamos los directorios de montaje
 sudo mkdir -p /mnt/nas/SteamOS /mnt/nas/Emu
