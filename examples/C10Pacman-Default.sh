@@ -10,3 +10,4 @@
 
 
 echo Work in progress...
+echo Aquí se deberían de comprobar los paquetes instalados que queramos.

@@ -20,5 +20,21 @@ else
     echo -e "\n*** No es necesario añadirlo al archivo /etc/fstab ***"
 fi
 
-# Creamos los directorios de montaje
-sudo mkdir -p /mnt/nas/SteamOS /mnt/nas/Emu
+# Creamos las dos carpetas por si no están ya creadas.
+sudo mkdir -p /mnt/nas/SteamOS /mnt/nas/Emu 2>/dev/null
+
+echo -ne "\n### Instalamos los paquetes nfs que no lleva SteamOS ###\n"
+
+sudo steamos-readonly disable
+
+echo "### Eliminamos si existen restos de otra instalacion. ###"
+sudo mv /etc/request-key.d/id_resolver.conf /tmp/. 2>/dev/null
+sudo mv /var/lib/nfs/state /tmp/. 2>/dev/null
+
+echo "### Instalamos paquetes a través de pacman. ###"
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+sudo pacman -S nfs-utils --noconfirm
+
+sudo steamos-readonly enable
+

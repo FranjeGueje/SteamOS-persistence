@@ -12,7 +12,7 @@
 # Si la variable que usa el programa no está creada, se crea con los valores por defecto
 [ -z "$BACKUPS" ] && BACKUPS="/home/.SteamOS-persistence.d/backup"
 
-UUID=UUID=ElValorDeLaParticionBTRFS
+UUID=CambiamePorUUIDcorrespondiente
 PARTICION="/dev/disk/by-uuid/$UUID"
 ToADD="UUID=$UUID     /home/deck    btrfs   noatime,lazytime,compress-force=zstd:6,space_cache=v2,autodefrag 0 0"
 

@@ -19,7 +19,6 @@
 # 2 --> Usas -S, -C o -K conjutamente.
 # 3 --> El directorio de script no existe.
 # 4 --> El usuario no tiene una contraseña en blanco y para el caso es necesario
-# 88 -> No se encuntra la utilidad dialog y se necesita
 ##############################################################################################################################################################
 
 # Variables iniciales
@@ -38,7 +37,7 @@ function showhelp() {
 }
 
 function showLogs() {
-    echo -e "Mostrando los mensajes sin dialog"
+    echo -e "Mostrando los mensajes sin dialog."
 
     RESULT="$LOGS/$MODE*log*"
     for f in $RESULT; do
@@ -89,24 +88,21 @@ done
 # Si el directorio no existe, se sale
 [ ! -d "$DIRECTORIO" ] && echo "No existe el directorio $DIRECTORIO" && showhelp
 
-# Variables para la ejecución de dialog
-DIALOGPATH="$DIRECTORIO/util"
-DIALOG="$DIALOGPATH/dialog"
-DIALOGMODULE="$DIALOGPATH/dialog.sh"
 # Variables donde guardar Backups y Logs
 BACKUPS="$DIRECTORIO/backup"
 LOGS="$DIRECTORIO/log"
 
-# Si no tenemos paramétros para ejecutarse automáticamente en algún modo y existe la utilidad portable dialog, la usamos.
-if [ -z "$MODE" ] && [ -f "$DIALOG" ]; then
-    echo "Usamos dialog y ejecutamos el Wizard (asistente)"
+# Si no tenemos paramétros para ejecutarse automáticamente en algún modo se lanza en modo asistente
+if [ -z "$MODE" ]; then
+    echo "Ejecutamos el Wizard (asistente)"
     # shellcheck source=/dev/null
-    source "$DIALOGMODULE"
-    # Aquí no debería de llegar, ya toma el flujo de dialog
+    source "$DIRECTORIO/asistente.sh"
+
+#     # Aquí no debería de llegar, ya toma el flujo de dialog
     exit 88
 else
     # Si no tenemos dialog, y no hemos puesto ningún modo: nos falta un parámetro y salimos. Mostramos la ayuda antes
-    [ -z "$MODE" ] && echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
+    echo "Falta algún parámetro necesario.// I need some parameters..." && showhelp
 fi
 
 #

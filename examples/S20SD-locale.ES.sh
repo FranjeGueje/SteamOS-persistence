@@ -11,10 +11,9 @@
 
 # Funcion encargada de cambiar el locale a ES descomentando la línea.
 function changeLocal() {
-
-	sudo steamos-readonly disable
-	sudo sed -i 's/\#es_ES.UTF-8\ UTF-8/es_ES.UTF-8\ UTF-8/' /etc/locale.gen
-sudo steamos-readonly enable
+    sudo steamos-readonly disable
+    sudo sed -i 's/\#es_ES.UTF-8\ UTF-8/es_ES.UTF-8\ UTF-8/' /etc/locale.gen
+    sudo steamos-readonly enable
 }
 
 echo "### Buscamos si está el locale es_ES-UTF8 activo o si se necesita cambiar.  ###"

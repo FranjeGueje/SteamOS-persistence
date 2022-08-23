@@ -15,8 +15,8 @@
 [ -z "$BACKUPS" ] && BACKUPS="/home/.SteamOS-persistence.d/backup"
 
 echo "### Comprobamos las diferencias entre los ficheros actuales y los originales ###"
-echo "* Diff de sdcard-mount.sh *"
+echo -ne "\n\n*** Diferencias de sdcard-mount.sh entre el que tiene SteamOS y nuestro Backup ***\n____________________________________________________________________________\n\n"
 diff /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS"/sdcard-mount.sh
 
-echo "* Diff de format-sdcard.sh *"
+echo -ne "\n\n\n\n*** Diferencias de format-sdcard.sh entre el que tiene SteamOS y nuestro Backup ***\n______________________________________________________________________________\n\n\n"
 diff /usr/lib/hwsupport/format-sdcard.sh "$BACKUPS"/format-sdcard.sh

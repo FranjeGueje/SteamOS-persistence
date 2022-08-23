@@ -11,8 +11,8 @@
 
 # Buscamos los locale comentados
 echo "### Buscamos los locale comentados ###"
-grep "#es_ES.UTF-8 UTF-8" </etc/locale.gen && echo "¡Se encuentra locale comentado!"
+grep "#es_ES.UTF-8 UTF-8" </etc/locale.gen && echo "Se encuentra locale es_ES comentado... :,( "
 
 # Buscamos los locale activos
 echo -e "\n### Buscamos los locale activos ###"
-grep "es_ES.UTF-8 UTF-8" </etc/locale.gen | grep -v '#' && echo "¡Se encuentra activo!"
+grep "es_ES.UTF-8 UTF-8" </etc/locale.gen | grep -v '#' && echo -ne "¡Se encuentra locale es_ES activo! :)\n\nPero recuerda que para que funcione también debe de estar instalado un paquete glibc.\n"

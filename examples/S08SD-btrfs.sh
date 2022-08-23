@@ -1,5 +1,5 @@
 #!/bin/bash
-# Instala los scripts para usar btrfs en las tarjetas SD
+# Instala sólo un script para montar btrfs en las tarjetas SD. NO FORMATEA EN BTRFS!
 # RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
 
 ##############################################################################################################################################################
@@ -17,19 +17,15 @@
 
 echo "### Copiando los archivos actuales..."
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS/sdcard-mount.sh-$(date +"%d-%m-%y-%r")" # Copia por histórico
-cp /usr/lib/hwsupport/format-sdcard.sh "$BACKUPS/format-sdcard.sh-$(date +"%d-%m-%y-%r")" # Copia por histórico
 cp /usr/lib/hwsupport/sdcard-mount.sh "$BACKUPS/sdcard-mount.sh"
-cp /usr/lib/hwsupport/format-sdcard.sh "$BACKUPS/format-sdcard.sh"
 echo "### Deshabilitamos sólo lectura..."
 sudo steamos-readonly disable
 echo "### Borramos los archivos actuales..."
 sudo rm /usr/lib/hwsupport/sdcard-mount.sh
-sudo rm /usr/lib/hwsupport/format-sdcard.sh
 echo "### Copiamos los nuevos ficheros..."
 sudo cp "$DIRECTORIO"/btrfdeck/modified/sdcard-mount.sh /usr/lib/hwsupport/sdcard-mount.sh
-sudo cp "$DIRECTORIO"/btrfdeck/modified/format-sdcard.sh /usr/lib/hwsupport/format-sdcard.sh
 echo "### Asignamos permisos..."
-sudo chmod 755 /usr/lib/hwsupport/sdcard-mount.sh /usr/lib/hwsupport/format-sdcard.sh
+sudo chmod 755 /usr/lib/hwsupport/sdcard-mount.sh
 echo "### Habiltamos el sólo lectura de nuevo..."
 sudo steamos-readonly enable
 echo "Done!"
