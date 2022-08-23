@@ -28,10 +28,10 @@ function salir() {
 
 # Para preguntar por la contraseña:
 function DpedirPass() {
-    zenity --title SteamOS-persistence --info --text="El usuario tiene una password personalida.\n\nPediremos la contrasena." --width=300
+    zenity --title SteamOS-persistence --info --text="El usuario tiene una password personalida.\n\nPediremos la password" --width=300
     while :; do
-        secreto="$(zenity --password --title SteamOS-persistence --ok-label="Aceptar" --cancel-label="Seguir sin introducirla" --text="Necesitamos tu contraseña para elevar los permisos.\n\nIntroduce la contraseña:" --width=300)"
-        echo -e -n "$secreto" | sudo -S ls >/dev/null 2>/dev/null && break
+        secreto="$(zenity --password --title SteamOS-persistence --ok-label="Aceptar" --cancel-label="Seguir sin introducirla" --text="Necesitamos tu password para elevar los permisos.\n\nIntroduce la password" --width=300)"
+        echo "$secreto" | sudo -v -S >/dev/null 2>/dev/null && break
         zenity --title SteamOS-persistence --info --text="Has introducido una password incorrecta." --width=300
     done
     secreto=0
@@ -42,29 +42,15 @@ function DmainMenu() {
     MODE=$(zenity --list --title=SteamOS-persistence \
         --text="Selecciona la opcion a realizar" --height=300 --width=600 \
         --ok-label="Aceptar" --cancel-label="Cancelar" \
-        --radiolist --column="" --column="Modo" --column="Descripción" \
+        --radiolist --column="" --column="Modo" --column="Descripcion" \
         1 S "Save - Guarda persistencia" \
         2 C "Check - Comprueba persistencia" \
         3 K "Kill - Deshace persistencia")
-
-    echo $MODE
-    if [ -z "$MODE" ]; then
-        salir
-        zenity --title SteamOS-persistence --info --text="Has seleccionado Salir.\n\n¡Que tengas un buen dia!" --width=300
-        exit 8
-    fi
 }
 
 # Para seleccionar scripts a utilizar
 function Dselect() {
-    # Si es en modo Check se selecciona todo
-    if [ "$MODE" = "C" ]; then
-        s=on
-    else
-        # Si es en otro modo, no se selecciona ningún elemento
-        s=off
-    fi
-
+    # Creamos la selección de Scripts
     RESULT="$DIRECTORIO/$MODE*.sh"
     i=1
     LISTA=()
@@ -76,21 +62,35 @@ function Dselect() {
             ((i++)) || true
         else
             zenity --title=SteamOS-persistence --info --text="No existen Scripts del tipo seleccionado" --width=300
-            DmainMenu
-            Dselect
+            RUN=
+            return
         fi
     done
 
     RUN=$(zenity --list --title=SteamOS-persistence --height=600 --width=900 \
         --ok-label="Aceptar" --cancel-label="Cancelar" \
         --text="Selecciona los Scripts que quieres que se ejecuten" --checklist \
-        --column="" --column="Nombre" --column="Descripción" --separator=" "\
+        --column="" --column="Nombre" --column="Descripcion" --separator=" "\
         "${LISTA[@]}")
     echo "Elegidos: ${RUN}"
-    if [ ! "$RUN" ]; then
-        zenity --title=SteamOS-persistence --info --text="Se cancelo o no se seleccionaron scripts." --width=300
-        DmainMenu
-        Dselect
+}
+
+# Para correr los scripts elegidos
+function Drun() {
+
+    if [ -z "$RUN" ]; then
+        zenity --title=SteamOS-persistence --info --text="No se ha seleccionado scripts a ejecutar." --width=300
+    else
+        for f in $RUN; do
+            g="$DIRECTORIO/$f"
+            # Si el fichero existe
+            echo "Procesando... // Processing... $f"
+            # shellcheck source=/dev/null
+            source "$g" >"$LOGS/$f.log" 2>"$LOGS/$f.log.error"
+            # Tras correr los scripts seleccionados, se muestran los resultados
+            zenity --title SteamOS-persistence --text-info --filename="$LOGS/$f.log" --height=600 --width=900
+            zenity --title SteamOS-persistence --text-info --filename="$LOGS/$f.log.error" --height=600 --width=900
+        done
     fi
 }
 
@@ -108,20 +108,23 @@ else
     echo -e -n "pass" | sudo -S ls >/dev/null 2>/dev/null || exit 4
 fi
 
-# Mostramos el menu principal
-DmainMenu
-Dselect
+MODE="" ; RUN=""
 
-# Ejecutamos los scripts seleccionados
-for f in $RUN; do
-    g="$DIRECTORIO/$f"
-    # Si el fichero existe
-    echo "Procesando... // Processing... $f"
-    # shellcheck source=/dev/null
-    source "$g" >"$LOGS/$f.log" 2>"$LOGS/$f.log.error"
-    # Tras correr los scripts seleccionados, se muestran los resultados
-    zenity --title SteamOS-persistence --text-info --filename="$LOGS/$f.log" --height=600 --width=900
-    zenity --title SteamOS-persistence --text-info --filename="$LOGS/$f.log.error" --height=600 --width=900
+# Buble principal
+while :; do
+    # Mostramos el menu principal
+    DmainMenu
+
+    # Tratamos ls opción elegida
+    if [ -z "$MODE" ]; then
+        zenity --title SteamOS-persistence --info --text="Has seleccionado Salir.\n\nQue tengas un buen dia!" --width=300
+        break
+    fi
+
+    Dselect
+
+    # Tratamos los scripts seleccionados
+    Drun
 done
 
 salir
