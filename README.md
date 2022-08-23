@@ -49,7 +49,7 @@ Opciones/Options:
 * -v|--verbose    Si se quiere mostrar en el modo desatendido los logs resultantes.
 
 
-## Imágenes de la herramienta (imágenes antiguas, no corresponden)
+## Imágenes de la herramienta
 (Las imágenes no corresponden a un sistema Steam Deck si no a un portátil usado para pruebas)
 Imágenes en modo asistente:
 ![Esta es una imagen](https://raw.githubusercontent.com/FranjeGueje/SteamOS-persistence/dev/doc/01-SteamOS-PasswordCheck.png)
