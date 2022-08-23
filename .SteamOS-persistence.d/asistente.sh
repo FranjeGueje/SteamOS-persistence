@@ -28,7 +28,7 @@ function salir() {
 
 # Para preguntar por la contraseña:
 function DpedirPass() {
-    zenity --title SteamOS-persistence --info --text="El usuario tiene una password personalida.\n\nPediremos la password" --width=300
+    zenity --title SteamOS-persistence --info --text="El usuario tiene una password personalizada.\n\nPediremos la password" --width=300
     while :; do
         secreto="$(zenity --password --title SteamOS-persistence --ok-label="Aceptar" --cancel-label="Seguir sin introducirla" --text="Necesitamos tu password para elevar los permisos.\n\nIntroduce la password" --width=300)"
         echo "$secreto" | sudo -v -S >/dev/null 2>/dev/null && break
