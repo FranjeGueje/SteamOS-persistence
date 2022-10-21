@@ -16,3 +16,6 @@ grep "#es_ES.UTF-8 UTF-8" </etc/locale.gen && echo "Se encuentra locale es_ES co
 # Buscamos los locale activos
 echo -e "\n### Buscamos los locale activos ###"
 grep "es_ES.UTF-8 UTF-8" </etc/locale.gen | grep -v '#' && echo -ne "¡Se encuentra locale es_ES activo! :)\n\nPero recuerda que para que funcione también debe de estar instalado un paquete glibc.\n"
+
+# Comprobamos que el idioma del sistema sea por defecto español
+echo -e "El idioma del sistema es: $(cat /etc/locale.conf)"

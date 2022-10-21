@@ -24,4 +24,6 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 sudo pacman -S glibc --noconfirm
 sudo locale-gen
+# Ponemos el idioma del sistema en Español
+[ "$(cat /etc/locale.conf)" == "LANG=es_ES.UTF-8" ] || sudo localectl set-locale LANG=es_ES.UTF-8
 sudo steamos-readonly enable
