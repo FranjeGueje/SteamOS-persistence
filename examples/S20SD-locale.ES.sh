@@ -24,6 +24,13 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 sudo pacman -S glibc --noconfirm
 sudo locale-gen
+
 # Ponemos el idioma del sistema en Español
 [ "$(cat /etc/locale.conf)" == "LANG=es_ES.UTF-8" ] || sudo localectl set-locale LANG=es_ES.UTF-8
 sudo steamos-readonly enable
+
+# Ponemos el formato es_ES a la moneda y hora en KDE
+echo -ne "[Formats]\nLANG=es_ES.UTF-8" | tee /home/deck/.config/plasma-localerc
+chmod 600 /home/deck/.config/plasma-localerc
+chown 1000:1000 /home/deck/.config/plasma-localerc
+
